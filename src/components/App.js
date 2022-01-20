@@ -1,13 +1,28 @@
 import React from 'react';
-import data from './data';
-import Header from './Header';
-import Main from './Main';
+import { Route, Switch } from 'react-router-dom';
+import Header from "./Header"
+import Home from './Home';
+import Dashboard from './Dashboard';
+import About from './About';
+import Stock from './Stock';
+import data from "./data"
 
 function App(props) {
   return (
     <div>
       <Header />
-      <Main data={data} />
+      <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route
+            path="/stocks/:symbol"
+            render={props => <Stock data={data} {...props} />}
+          />
+          <Route
+            path="/stocks"
+            render={props => <Dashboard {...props} data={data} />}
+          />
+      </Switch>
     </div>
   );
 }
